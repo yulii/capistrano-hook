@@ -1,7 +1,4 @@
 require 'capistrano/hook/version'
+require 'capistrano/hook/web'
 
-module Capistrano
-  module Hook
-    # Your code goes here...
-  end
-end
+load File.expand_path('../tasks/webhook.rake', __FILE__)
