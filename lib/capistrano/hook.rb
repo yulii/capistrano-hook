@@ -1,4 +1,4 @@
-require "capistrano/hook/version"
+require 'capistrano/hook/version'
 
 module Capistrano
   module Hook
