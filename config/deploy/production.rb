@@ -26,7 +26,6 @@
 # Configuration
 # =============
 set :webhook_url, 'http://yulii.net/webhook'
-set :webhook_url, 'https://hooks.slack.com/services/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'
 set :webhook_starting_payload, { text: '[production] Now, deploying...' }
 set :webhook_finished_payload, { text: '[production] Deployment has been completed!' }
 set :webhook_failed_payload,   { text: '[production] Oops! something went wrong.' }
