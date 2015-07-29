@@ -1,5 +1,4 @@
 namespace :webhook do
-
   desc <<-DESC
     Capistrano hook will not be run with no settings.
 
@@ -17,7 +16,6 @@ namespace :webhook do
   end
 
   namespace :post do
-
     task :starting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -73,7 +71,7 @@ namespace :webhook do
     end
 
     before 'deploy:starting',  'webhook:post:starting'
-    after  'deploy:finishing', 'webhook:post:finished'
-    after  'deploy:failed',    'webhook:post:failed'
+    after 'deploy:finishing', 'webhook:post:finished'
+    after 'deploy:failed',    'webhook:post:failed'
   end
 end
