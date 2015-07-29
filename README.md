@@ -1,9 +1,5 @@
 # Capistrano::Hook
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/capistrano/hook`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -12,17 +8,47 @@ Add this line to your application's Gemfile:
 gem 'capistrano-hook'
 ```
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install capistrano-hook
-
 ## Usage
 
-TODO: Write usage instructions here
+Add this line to your Capfile:
+
+```ruby
+require 'capistrano/hook'
+```
+
+Capistrano hook will not be run with no settings. You can setting the variables shown below.
+
+```ruby
+set :webhook_url, 'http://hooks.yulii.net/services'
+set :webhook_starting_payload, { text: 'Now, deploying...' }
+set :webhook_finished_payload, { text: 'Deployment has been completed!' }
+set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
+```
+
+### Slack
+
+Create incoming webhooks into Slack.
+
+```ruby
+set :webhook_url, 'http://hooks.yulii.net/services'
+set :webhook_starting_payload, {
+  username:   'Capistrano',
+  icon_emoji: ':monkey_face:',
+  text:       'Now, deploying...'
+}
+set :webhook_finished_payload, {
+  username:   'Capistrano',
+  icon_emoji: ':monkey_face:',
+  text:       'Deployment has been completed!'
+}
+set :webhook_failed_payload, {
+  username:   'Capistrano',
+  icon_emoji: ':monkey_face:',
+  text:       'Oops! something went wrong.'
+}
+```
+
+[Slack API - Incoming Webhooks](https://api.slack.com/incoming-webhooks)
 
 ## Development
 
@@ -32,7 +58,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/capistrano-hook. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/yulii/capistrano-hook. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
