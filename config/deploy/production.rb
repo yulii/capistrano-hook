@@ -21,7 +21,7 @@
 
 # Configuration
 # =============
-set :webhook_url, 'http://yulii.net/webhook'
+set :webhook_url, 'https://yulii.github.io'
 set :webhook_starting_payload, text: '[production] Now, deploying...'
 set :webhook_finished_payload, text: '[production] Deployment has been completed!'
 set :webhook_failed_payload,   text: '[production] Oops! something went wrong.'

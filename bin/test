@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+CWD=$(pwd)
+SWD=$(cd `dirname $0` && pwd)
+IFS=$'\n\t'
+
+bundle exec rake
+bundle exec rubocop --auto-correct
+
