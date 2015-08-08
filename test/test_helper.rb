@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
-require 'capistrano/hook'
+require 'capistrano/hook/load'
 
 require 'minitest/autorun'
 require 'minitest/reporters'

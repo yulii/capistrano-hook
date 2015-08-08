@@ -4,7 +4,7 @@ namespace :webhook do
 
     You can setting the variables shown below.
 
-      set :webhook_url, 'http://yulii.net/'
+      set :webhook_url, 'https://yulii.github.io'
       set :webhook_starting_payload, { text: 'Now, deploying...' }
       set :webhook_finished_payload, { text: 'Deployment has been completed!' }
       set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
@@ -71,7 +71,7 @@ namespace :webhook do
     end
 
     before 'deploy:starting',  'webhook:post:starting'
-    after 'deploy:finishing', 'webhook:post:finished'
-    after 'deploy:failed',    'webhook:post:failed'
+    after  'deploy:finishing', 'webhook:post:finished'
+    after  'deploy:failed',    'webhook:post:failed'
   end
 end
