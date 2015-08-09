@@ -1,5 +1,11 @@
 # Capistrano::Hook
 
+[![Gem Version](https://badge.fury.io/rb/capistrano-hook.svg)](http://badge.fury.io/rb/capistrano-hook)
+[![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg)](https://travis-ci.org/yulii/capistrano-hook)
+[![Dependency Status](https://gemnasium.com/yulii/capistrano-hook.svg)](https://gemnasium.com/yulii/capistrano-hook)
+
+Notification hooks include start, finish and fail of deployments.
+
 ## Installation
 
 Add this line to your application's Gemfile:

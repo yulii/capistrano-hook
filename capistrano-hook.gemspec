@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['yulii']
   spec.email         = ['yone.info@gmail.com']
 
-  spec.summary       = 'Simple hooks for Capistrano deployments'
-  spec.description   = 'Notification hooks include start, finish and fail of deployments'
+  spec.summary       = 'Simple hooks for Capistrano deployments.'
+  spec.description   = 'Notification hooks include start, finish and fail of deployments.'
   spec.homepage      = 'https://github.com/yulii/capistrano-hook'
   spec.license       = 'MIT'
 
