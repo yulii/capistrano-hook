@@ -7,8 +7,6 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-
-
 # role-based syntax
 # ==================
 
@@ -21,14 +19,12 @@
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
-
-
 # Configuration
 # =============
-set :webhook_url, 'http://yulii.net/webhook'
-set :webhook_starting_payload, { text: '[production] Now, deploying...' }
-set :webhook_finished_payload, { text: '[production] Deployment has been completed!' }
-set :webhook_failed_payload,   { text: '[production] Oops! something went wrong.' }
+set :webhook_url, 'https://yulii.github.io'
+set :webhook_starting_payload, text: '[production] Now, deploying...'
+set :webhook_finished_payload, text: '[production] Deployment has been completed!'
+set :webhook_failed_payload,   text: '[production] Oops! something went wrong.'
 
 # The server-based syntax can be used to override options:
 # ------------------------------------

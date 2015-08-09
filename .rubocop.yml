@@ -1,1 +1,9 @@
-inherit_from: .rubocop_todo.yml
+Metrics/LineLength:
+  Max: 104
+
+Style/Documentation:
+  Enabled: false
+
+SingleSpaceBeforeFirstArg:
+  Enabled: false
+

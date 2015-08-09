@@ -1,11 +1,10 @@
 namespace :webhook do
-
   desc <<-DESC
     Capistrano hook will not be run with no settings.
 
     You can setting the variables shown below.
 
-      set :webhook_url, 'http://yulii.net/'
+      set :webhook_url, 'https://yulii.github.io'
       set :webhook_starting_payload, { text: 'Now, deploying...' }
       set :webhook_finished_payload, { text: 'Deployment has been completed!' }
       set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
@@ -17,7 +16,6 @@ namespace :webhook do
   end
 
   namespace :post do
-
     task :starting do
       run_locally do
         url     = fetch(:webhook_url)
