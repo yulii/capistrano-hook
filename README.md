@@ -25,7 +25,7 @@ require 'capistrano/hook'
 Capistrano hook will not be run with no settings. You can setting the variables shown below.
 
 ```ruby
-set :webhook_url, 'http://hooks.yulii.net/services'
+set :webhook_url, 'https://yulii.github.io/services'
 set :webhook_starting_payload, { text: 'Now, deploying...' }
 set :webhook_finished_payload, { text: 'Deployment has been completed!' }
 set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
@@ -36,7 +36,7 @@ set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
 Create incoming webhooks into Slack.
 
 ```ruby
-set :webhook_url, 'http://hooks.yulii.net/services'
+set :webhook_url, 'https://yulii.github.io/services'
 set :webhook_starting_payload, {
   username:   'Capistrano',
   icon_emoji: ':monkey_face:',
