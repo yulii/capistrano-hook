@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/capistrano-hook.svg)](http://badge.fury.io/rb/capistrano-hook)
 [![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg)](https://travis-ci.org/yulii/capistrano-hook)
+[![Code Climate](https://codeclimate.com/github/yulii/capistrano-hook/badges/gpa.svg)](https://codeclimate.com/github/yulii/capistrano-hook)
 [![Dependency Status](https://gemnasium.com/yulii/capistrano-hook.svg)](https://gemnasium.com/yulii/capistrano-hook)
 
 Notification hooks include start, finish and fail of deployments.
@@ -31,9 +32,17 @@ set :webhook_finished_payload, { text: 'Deployment has been completed!' }
 set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
 ```
 
+Test your setup by running:
+```
+cap production webhook:post:starting
+cap production webhook:post:finished
+cap production webhook:post:failed
+```
+
+
 ### Slack
 
-Create incoming webhooks into Slack.
+Send notifications to Slack via incoming webhooks.
 
 ```ruby
 set :webhook_url, 'https://yulii.github.io/services'
