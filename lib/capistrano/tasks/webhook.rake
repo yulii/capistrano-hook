@@ -28,7 +28,7 @@ namespace :webhook do
           else
             error response_message(result, payload)
           end
-        rescue StandardError => e
+        rescue SocketError => e
           error "[webhook:post:starting] #{e.class} #{e.message}"
         end
       end
@@ -46,7 +46,7 @@ namespace :webhook do
           else
             error response_message(result, payload)
           end
-        rescue StandardError => e
+        rescue SocketError => e
           error "[webhook:post:finishing] #{e.class} #{e.message}"
         end
       end
@@ -64,7 +64,7 @@ namespace :webhook do
           else
             error response_message(result, payload)
           end
-        rescue StandardError => e
+        rescue SocketError => e
           error "[webhook:post:failed] #{e.class} #{e.message}"
         end
       end
