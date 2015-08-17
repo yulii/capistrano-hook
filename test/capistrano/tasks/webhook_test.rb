@@ -3,7 +3,31 @@ require 'test_helper'
 module Capistrano
   module Tasks
     class WebhookTest < Minitest::Test
-      def test_skip_webhook_post_starting
+      def test_skip_webhook_post_starting_with_blank_url
+        set :webhook_url, nil
+        assert_equal(fetch(:webhook_nil), nil)
+        capture_io do
+          Rake::Task['webhook:post:starting'].execute
+        end
+      end
+
+      def test_skip_webhook_post_finished_with_blank_url
+        set :webhook_url, nil
+        assert_equal(fetch(:webhook_url), nil)
+        capture_io do
+          Rake::Task['webhook:post:finished'].execute
+        end
+      end
+
+      def test_skip_webhook_post_failed_with_blank_url
+        set :webhook_url, nil
+        assert_equal(fetch(:webhook_url), nil)
+        capture_io do
+          Rake::Task['webhook:post:failed'].execute
+        end
+      end
+
+      def test_skip_webhook_post_starting_with_empty_payload
         set :webhook_starting_payload, {}
         assert_equal(fetch(:webhook_starting_payload), {})
         capture_io do
@@ -11,7 +35,7 @@ module Capistrano
         end
       end
 
-      def test_skip_webhook_post_finished
+      def test_skip_webhook_post_finished_with_empty_payload
         set :webhook_finished_payload, {}
         assert_equal(fetch(:webhook_finished_payload), {})
         capture_io do
@@ -19,7 +43,7 @@ module Capistrano
         end
       end
 
-      def test_skip_webhook_post_failed
+      def test_skip_webhook_post_failed_with_empty_payload
         set :webhook_failed_payload, {}
         assert_equal(fetch(:webhook_failed_payload), {})
         capture_io do

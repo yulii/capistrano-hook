@@ -20,16 +20,12 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_starting_payload)
-        next if payload.nil? || payload.empty?
-        begin
-          result = Capistrano::Hook::Web.client(url).post(payload)
-          if result.is_a?(Net::HTTPSuccess)
-            info response_message(result, payload)
-          else
-            error response_message(result, payload)
-          end
-        rescue SocketError => e
-          error "[webhook:post:starting] #{e.class} #{e.message}"
+        next if url.nil? || payload.nil? || payload.empty?
+        result = Capistrano::Hook::Web.client(url).post(payload)
+        if result.is_a?(Net::HTTPSuccess)
+          info response_message(result, payload)
+        else
+          error response_message(result, payload)
         end
       end
     end
@@ -38,16 +34,12 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_finished_payload)
-        next if payload.nil? || payload.empty?
-        begin
-          result = Capistrano::Hook::Web.client(url).post(payload)
-          if result.is_a?(Net::HTTPSuccess)
-            info response_message(result, payload)
-          else
-            error response_message(result, payload)
-          end
-        rescue SocketError => e
-          error "[webhook:post:finishing] #{e.class} #{e.message}"
+        next if url.nil? || payload.nil? || payload.empty?
+        result = Capistrano::Hook::Web.client(url).post(payload)
+        if result.is_a?(Net::HTTPSuccess)
+          info response_message(result, payload)
+        else
+          error response_message(result, payload)
         end
       end
     end
@@ -56,16 +48,12 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_failed_payload)
-        next if payload.nil? || payload.empty?
-        begin
-          result = Capistrano::Hook::Web.client(url).post(payload)
-          if result.is_a?(Net::HTTPSuccess)
-            info response_message(result, payload)
-          else
-            error response_message(result, payload)
-          end
-        rescue SocketError => e
-          error "[webhook:post:failed] #{e.class} #{e.message}"
+        next if url.nil? || payload.nil? || payload.empty?
+        result = Capistrano::Hook::Web.client(url).post(payload)
+        if result.is_a?(Net::HTTPSuccess)
+          info response_message(result, payload)
+        else
+          error response_message(result, payload)
         end
       end
     end
