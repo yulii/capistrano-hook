@@ -27,9 +27,11 @@ Capistrano hook will not be run with no settings. You can setting the variables 
 
 ```ruby
 set :webhook_url, 'https://yulii.github.io/services'
-set :webhook_starting_payload, { text: 'Now, deploying...' }
-set :webhook_finished_payload, { text: 'Deployment has been completed!' }
-set :webhook_failed_payload,   { text: 'Oops! something went wrong.' }
+set :webhook_starting_payload,   { text: 'Now, deploying...' }
+set :webhook_finished_payload,   { text: 'Deployment has been completed!' }
+set :webhook_failed_payload,     { text: 'Oops! something went wrong.' }
+set :webhook_reverting_payload,  { text: 'Reverting...' }
+set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 ```
 
 Test your setup by running:
@@ -37,6 +39,8 @@ Test your setup by running:
 cap production webhook:post:starting
 cap production webhook:post:finished
 cap production webhook:post:failed
+cap production webhook:post:reverting
+cap production webhook:post:rollbacked
 ```
 
 
