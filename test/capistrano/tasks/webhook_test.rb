@@ -4,118 +4,63 @@ module Capistrano
   module Tasks
     class WebhookTest < Minitest::Test
       def test_skip_webhook_post_starting_with_blank_url
-        assert_silent_with_blank_url('webhook:post:starting')
+        assert_silent_with_blank_url('starting')
       end
 
       def test_skip_webhook_post_finished_with_blank_url
-        assert_silent_with_blank_url('webhook:post:finished')
+        assert_silent_with_blank_url('finished')
       end
 
       def test_skip_webhook_post_failed_with_blank_url
-        assert_silent_with_blank_url('webhook:post:failed')
+        assert_silent_with_blank_url('failed')
       end
 
       def test_skip_webhook_post_reverting_with_blank_url
-        assert_silent_with_blank_url('webhook:post:reverting')
+        assert_silent_with_blank_url('reverting')
       end
 
       def test_skip_webhook_post_rollbacked_with_blank_url
-        assert_silent_with_blank_url('webhook:post:rollbacked')
+        assert_silent_with_blank_url('rollbacked')
       end
 
       def test_skip_webhook_post_starting_with_empty_payload
-        set :webhook_starting_payload, {}
-        assert_equal(fetch(:webhook_starting_payload), {})
-        capture_io do
-          Rake::Task['webhook:post:starting'].execute
-        end
+        assert_silent_with_empty_payload('starting')
       end
 
       def test_skip_webhook_post_finished_with_empty_payload
-        set :webhook_finished_payload, {}
-        assert_equal(fetch(:webhook_finished_payload), {})
-        capture_io do
-          Rake::Task['webhook:post:finished'].execute
-        end
+        assert_silent_with_empty_payload('finished')
       end
 
       def test_skip_webhook_post_failed_with_empty_payload
-        set :webhook_failed_payload, {}
-        assert_equal(fetch(:webhook_failed_payload), {})
-        capture_io do
-          Rake::Task['webhook:post:failed'].execute
-        end
+        assert_silent_with_empty_payload('failed')
       end
 
       def test_skip_webhook_post_reverting_with_empty_payload
-        set :webhook_reverting_payload, {}
-        assert_equal(fetch(:webhook_reverting_payload), {})
-        capture_io do
-          Rake::Task['webhook:post:reverting'].execute
-        end
+        assert_silent_with_empty_payload('reverting')
       end
 
       def test_skip_webhook_post_rollbacked_with_empty_payload
-        set :webhook_rollbacked_payload, {}
-        assert_equal(fetch(:webhook_rollbacked_payload), {})
-        capture_io do
-          Rake::Task['webhook:post:rollbacked'].execute
-        end
+        assert_silent_with_empty_payload('rollbacked')
       end
 
       def test_webhook_post_starting
-        mock = Minitest::Mock.new
-        mock.expect :post, http_response_ok, [fetch(:webhook_starting_payload)]
-        Capistrano::Hook::Web.stub(:client, mock) do
-          capture_io do
-            Rake::Task['webhook:post:starting'].execute
-          end
-        end
-        mock.verify
+        assert_silent_when_deployment_is_notified('starting')
       end
 
       def test_webhook_post_finished
-        mock = Minitest::Mock.new
-        mock.expect :post, http_response_ok, [fetch(:webhook_finished_payload)]
-        Capistrano::Hook::Web.stub(:client, mock) do
-          capture_io do
-            Rake::Task['webhook:post:finished'].execute
-          end
-        end
-        mock.verify
+        assert_silent_when_deployment_is_notified('finished')
       end
 
       def test_webhook_post_failed
-        mock = Minitest::Mock.new
-        mock.expect :post, http_response_ok, [fetch(:webhook_failed_payload)]
-        Capistrano::Hook::Web.stub(:client, mock) do
-          capture_io do
-            Rake::Task['webhook:post:failed'].execute
-          end
-        end
-        mock.verify
+        assert_silent_when_deployment_is_notified('failed')
       end
 
       def test_webhook_post_reverting
-        mock = Minitest::Mock.new
-        mock.expect :post, http_response_ok, [fetch(:webhook_reverting_payload)]
-        Capistrano::Hook::Web.stub(:client, mock) do
-          capture_io do
-            Rake::Task['webhook:post:reverting'].execute
-          end
-        end
-        mock.verify
+        assert_silent_when_deployment_is_notified('reverting')
       end
 
       def test_webhook_post_rollbacked
-        mock = Minitest::Mock.new
-        mock.expect :post, http_response_ok, [fetch(:webhook_rollbacked_payload)]
-        Capistrano::Hook::Web.stub(:client, mock) do
-          capture_io do
-            Rake::Task['webhook:post:rollbacked'].execute
-          end
-        end
-        mock.verify
+        assert_silent_when_deployment_is_notified('rollbacked')
       end
 
       private
@@ -136,12 +81,31 @@ module Capistrano
         end
       end
 
-      def assert_silent_with_blank_url(name)
+      def assert_silent_with_blank_url(task)
         set :webhook_url, nil
         assert_equal(fetch(:webhook_nil), nil)
         capture_io do
-          Rake::Task[name].execute
+          Rake::Task["webhook:post:#{task}"].execute
         end
+      end
+
+      def assert_silent_with_empty_payload(task)
+        set :"webhook_#{task}_payload", {}
+        assert_equal(fetch(:"webhook_#{task}_payload"), {})
+        capture_io do
+          Rake::Task["webhook:post:#{task}"].execute
+        end
+      end
+
+      def assert_silent_when_deployment_is_notified(task)
+        mock = Minitest::Mock.new
+        mock.expect :post, http_response_ok, [fetch(:"webhook_#{task}_payload")]
+        Capistrano::Hook::Web.stub(:client, mock) do
+          capture_io do
+            Rake::Task["webhook:post:#{task}"].execute
+          end
+        end
+        mock.verify
       end
     end
   end

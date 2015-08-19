@@ -16,7 +16,8 @@ namespace :webhook do
   def webhook(url, payload)
     return if url.nil? || payload.nil? || payload.empty?
     result = Capistrano::Hook::Web.client(url).post(payload)
-    message = "HTTP #{result.code} #{result.message} body='#{result.body}'; POST #{url} payload='#{payload}'"
+    message = "HTTP #{result.code} #{result.message} body='#{result.body}'; "
+    message << "POST #{url} payload='#{payload}'"
     if result.is_a?(Net::HTTPSuccess)
       info message
     else
