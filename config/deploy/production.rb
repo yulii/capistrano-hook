@@ -21,10 +21,12 @@
 
 # Configuration
 # =============
-set :webhook_url, 'https://yulii.github.io'
-set :webhook_starting_payload, text: '[production] Now, deploying...'
-set :webhook_finished_payload, text: '[production] Deployment has been completed!'
-set :webhook_failed_payload,   text: '[production] Oops! something went wrong.'
+set :webhook_url, MOCK_URL[(ENV['STATUS_CODE'] || '200')]
+set :webhook_starting_payload,   text: '[production] Now, deploying...'
+set :webhook_finished_payload,   text: '[production] Deployment has been completed!'
+set :webhook_failed_payload,     text: '[production] Oops! something went wrong.'
+set :webhook_reverting_payload,  text: '[production] Reverting...'
+set :webhook_rollbacked_payload, text: '[production] Rollback has been completed!'
 
 # The server-based syntax can be used to override options:
 # ------------------------------------
