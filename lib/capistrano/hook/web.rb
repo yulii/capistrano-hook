@@ -13,9 +13,13 @@ module Capistrano
       def post(params)
         # TODO: rescue / logger
         http.start do
-          request = Net::HTTP::Post.new(uri.path)
-          request.set_form_data(payload: params.to_json)
-          http.request(request)
+          http.request(request(params))
+        end
+      end
+
+      def request(params)
+        Net::HTTP::Post.new(uri.path).tap do |o|
+          o.set_form_data(payload: params.to_json)
         end
       end
 
