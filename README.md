@@ -7,6 +7,13 @@
 
 Notification hooks include start, finish and fail of deployments.
 
+## Features
+
+### Webhoook
+
+Notify Capistrano deployments via webhook API.
+Just set the webhook URL and message.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -23,7 +30,9 @@ Add this line to your Capfile:
 require 'capistrano/hook'
 ```
 
-Capistrano hook will not be run with no settings. You can setting the variables shown below.
+### Webhook
+
+Webhook will not be run with no settings. You can setting the variables shown below.
 
 ```ruby
 set :webhook_url, 'https://yulii.github.io/services'
