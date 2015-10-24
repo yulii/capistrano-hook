@@ -26,6 +26,7 @@ namespace :webhook do
   end
 
   namespace :post do
+    desc 'Post a starting message'
     task :starting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -34,6 +35,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a finished message'
     task :finished do
       run_locally do
         url     = fetch(:webhook_url)
@@ -42,6 +44,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a failed message'
     task :failed do
       run_locally do
         url     = fetch(:webhook_url)
@@ -50,6 +53,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a reverting message'
     task :reverting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -58,6 +62,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a rollbacked message'
     task :rollbacked do
       run_locally do
         url     = fetch(:webhook_url)
