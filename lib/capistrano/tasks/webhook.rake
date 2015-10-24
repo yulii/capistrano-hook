@@ -26,7 +26,7 @@ namespace :webhook do
   end
 
   namespace :post do
-    desc 'Post a starting message'
+    desc 'Post a starting message if :webhook_url and :webhook_starting_payload are present'
     task :starting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -35,7 +35,7 @@ namespace :webhook do
       end
     end
 
-    desc 'Post a finished message'
+    desc 'Post a finished message if :webhook_url and :webhook_finished_payload are present'
     task :finished do
       run_locally do
         url     = fetch(:webhook_url)
@@ -44,7 +44,7 @@ namespace :webhook do
       end
     end
 
-    desc 'Post a failed message'
+    desc 'Post a failed message if :webhook_url and :webhook_failed_payload are present'
     task :failed do
       run_locally do
         url     = fetch(:webhook_url)
@@ -53,7 +53,7 @@ namespace :webhook do
       end
     end
 
-    desc 'Post a reverting message'
+    desc 'Post a reverting message if :webhook_url and :webhook_reverting_payload are present'
     task :reverting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -62,7 +62,7 @@ namespace :webhook do
       end
     end
 
-    desc 'Post a rollbacked message'
+    desc 'Post a rollbacked message if :webhook_url and :webhook_rollbacked_payload are present'
     task :rollbacked do
       run_locally do
         url     = fetch(:webhook_url)
