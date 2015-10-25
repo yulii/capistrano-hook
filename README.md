@@ -43,15 +43,29 @@ set :webhook_reverting_payload,  { text: 'Reverting...' }
 set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 ```
 
-Test your setup by running:
-```
-cap production webhook:post:starting
-cap production webhook:post:finished
-cap production webhook:post:failed
-cap production webhook:post:reverting
-cap production webhook:post:rollbacked
-```
+### Testing
 
+Test your setup by running:
+
+```
+# List the webhook configured variables
+$ cap webhook:config:list
+
+# Post a starting message
+$ cap webhook:post:starting
+
+# Post a finished message
+$ cap webhook:post:finished
+
+# Post a failed message
+$ cap webhook:post:failed
+
+# Post a reverting message
+$ cap webhook:post:reverting
+
+# Post a rollbacked message
+$ cap webhook:post:rollbacked
+```
 
 ### Slack
 
