@@ -29,12 +29,12 @@ namespace :webhook do
     desc 'List the webhook configured variables'
     task :list do
       run_locally do
-        keys = [ :webhook_url,
-                 :webhook_starting_payload,
-                 :webhook_finished_payload,
-                 :webhook_failed_payload,
-                 :webhook_reverting_payload,
-                 :webhook_rollbacked_payload
+        keys = [:webhook_url,
+                :webhook_starting_payload,
+                :webhook_finished_payload,
+                :webhook_failed_payload,
+                :webhook_reverting_payload,
+                :webhook_rollbacked_payload
                ].sort
         padding = keys.max { |a, b| a.length <=> b.length }.length
         keys.each do |key|
