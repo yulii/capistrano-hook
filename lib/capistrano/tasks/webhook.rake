@@ -1,17 +1,15 @@
+#  Capistrano hook will not be run with no settings.
+#
+#  You can setting the variables shown below.
+#
+#    set :webhook_url, 'https://yulii.github.io'
+#    set :webhook_starting_payload,   { text: 'Now, deploying...' }
+#    set :webhook_finished_payload,   { text: 'Deployment has been completed!' }
+#    set :webhook_failed_payload,     { text: 'Oops! something went wrong.' }
+#    set :webhook_reverting_payload,  { text: 'Reverting...' }
+#    set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
+
 namespace :webhook do
-  desc <<-DESC
-    Capistrano hook will not be run with no settings.
-
-    You can setting the variables shown below.
-
-      set :webhook_url, 'https://yulii.github.io'
-      set :webhook_starting_payload,   { text: 'Now, deploying...' }
-      set :webhook_finished_payload,   { text: 'Deployment has been completed!' }
-      set :webhook_failed_payload,     { text: 'Oops! something went wrong.' }
-      set :webhook_reverting_payload,  { text: 'Reverting...' }
-      set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
-
-  DESC
 
   def webhook(url, payload)
     return if url.nil? || payload.nil? || payload.empty?
