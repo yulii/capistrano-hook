@@ -49,22 +49,22 @@ Test your setup by running:
 
 ```
 # List the webhook configured variables
-$ cap webhook:config:list
+$ cap production webhook:config:list
 
 # Post a starting message
-$ cap webhook:post:starting
+$ cap production webhook:post:starting
 
 # Post a finished message
-$ cap webhook:post:finished
+$ cap production webhook:post:finished
 
 # Post a failed message
-$ cap webhook:post:failed
+$ cap production webhook:post:failed
 
 # Post a reverting message
-$ cap webhook:post:reverting
+$ cap production webhook:post:reverting
 
 # Post a rollbacked message
-$ cap webhook:post:rollbacked
+$ cap production webhook:post:rollbacked
 ```
 
 ### Slack
