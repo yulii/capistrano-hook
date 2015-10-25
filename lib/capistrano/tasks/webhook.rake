@@ -10,7 +10,6 @@
 #    set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 
 namespace :webhook do
-
   def webhook(url, payload)
     return if url.nil? || payload.nil? || payload.empty?
     info "POST #{url} payload='#{payload}'"
