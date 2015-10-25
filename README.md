@@ -1,7 +1,7 @@
 # Capistrano::Hook
 
 [![Gem Version](https://badge.fury.io/rb/capistrano-hook.svg)](http://badge.fury.io/rb/capistrano-hook)
-[![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg)](https://travis-ci.org/yulii/capistrano-hook)
+[![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg?branch=master)](https://travis-ci.org/yulii/capistrano-hook)
 [![Code Climate](https://codeclimate.com/github/yulii/capistrano-hook/badges/gpa.svg)](https://codeclimate.com/github/yulii/capistrano-hook)
 [![Dependency Status](https://gemnasium.com/yulii/capistrano-hook.svg)](https://gemnasium.com/yulii/capistrano-hook)
 
