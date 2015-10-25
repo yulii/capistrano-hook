@@ -1,18 +1,15 @@
+#  Capistrano hook will not be run with no settings.
+#
+#  You can setting the variables shown below.
+#
+#    set :webhook_url, 'https://yulii.github.io'
+#    set :webhook_starting_payload,   { text: 'Now, deploying...' }
+#    set :webhook_finished_payload,   { text: 'Deployment has been completed!' }
+#    set :webhook_failed_payload,     { text: 'Oops! something went wrong.' }
+#    set :webhook_reverting_payload,  { text: 'Reverting...' }
+#    set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
+
 namespace :webhook do
-  desc <<-DESC
-    Capistrano hook will not be run with no settings.
-
-    You can setting the variables shown below.
-
-      set :webhook_url, 'https://yulii.github.io'
-      set :webhook_starting_payload,   { text: 'Now, deploying...' }
-      set :webhook_finished_payload,   { text: 'Deployment has been completed!' }
-      set :webhook_failed_payload,     { text: 'Oops! something went wrong.' }
-      set :webhook_reverting_payload,  { text: 'Reverting...' }
-      set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
-
-  DESC
-
   def webhook(url, payload)
     return if url.nil? || payload.nil? || payload.empty?
     info "POST #{url} payload='#{payload}'"
@@ -25,7 +22,28 @@ namespace :webhook do
     end
   end
 
+  namespace :config do
+    desc 'List the webhook configured variables'
+    task :list do
+      run_locally do
+        keys = [:webhook_url,
+                :webhook_starting_payload,
+                :webhook_finished_payload,
+                :webhook_failed_payload,
+                :webhook_reverting_payload,
+                :webhook_rollbacked_payload
+               ].sort
+        padding = keys.max { |a, b| a.length <=> b.length }.length
+        keys.each do |key|
+          next if fetch(key).nil? || fetch(key).empty?
+          puts ":#{key.to_s.ljust(padding)} => #{fetch(key)}"
+        end
+      end
+    end
+  end
+
   namespace :post do
+    desc 'Post a starting message if :webhook_url and :webhook_starting_payload are present'
     task :starting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -34,6 +52,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a finished message if :webhook_url and :webhook_finished_payload are present'
     task :finished do
       run_locally do
         url     = fetch(:webhook_url)
@@ -42,6 +61,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a failed message if :webhook_url and :webhook_failed_payload are present'
     task :failed do
       run_locally do
         url     = fetch(:webhook_url)
@@ -50,6 +70,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a reverting message if :webhook_url and :webhook_reverting_payload are present'
     task :reverting do
       run_locally do
         url     = fetch(:webhook_url)
@@ -58,6 +79,7 @@ namespace :webhook do
       end
     end
 
+    desc 'Post a rollbacked message if :webhook_url and :webhook_rollbacked_payload are present'
     task :rollbacked do
       run_locally do
         url     = fetch(:webhook_url)

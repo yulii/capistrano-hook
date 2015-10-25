@@ -1,7 +1,7 @@
 # Capistrano::Hook
 
 [![Gem Version](https://badge.fury.io/rb/capistrano-hook.svg)](http://badge.fury.io/rb/capistrano-hook)
-[![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg)](https://travis-ci.org/yulii/capistrano-hook)
+[![Build Status](https://travis-ci.org/yulii/capistrano-hook.svg?branch=master)](https://travis-ci.org/yulii/capistrano-hook)
 [![Code Climate](https://codeclimate.com/github/yulii/capistrano-hook/badges/gpa.svg)](https://codeclimate.com/github/yulii/capistrano-hook)
 [![Dependency Status](https://gemnasium.com/yulii/capistrano-hook.svg)](https://gemnasium.com/yulii/capistrano-hook)
 
@@ -43,15 +43,29 @@ set :webhook_reverting_payload,  { text: 'Reverting...' }
 set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 ```
 
-Test your setup by running:
-```
-cap production webhook:post:starting
-cap production webhook:post:finished
-cap production webhook:post:failed
-cap production webhook:post:reverting
-cap production webhook:post:rollbacked
-```
+### Testing
 
+Test your setup by running:
+
+```
+# List the webhook configured variables
+$ cap production webhook:config:list
+
+# Post a starting message
+$ cap production webhook:post:starting
+
+# Post a finished message
+$ cap production webhook:post:finished
+
+# Post a failed message
+$ cap production webhook:post:failed
+
+# Post a reverting message
+$ cap production webhook:post:reverting
+
+# Post a rollbacked message
+$ cap production webhook:post:rollbacked
+```
 
 ### Slack
 
