@@ -5,4 +5,5 @@ SWD=$(cd `dirname $0` && pwd)
 IFS=$'\n\t'
 
 test -f $SWD/../.rubocop_todo.yml && rm $SWD/../.rubocop_todo.yml
-bundle exec rubocop --auto-correct --auto-gen-config
+bundle exec rubocop --auto-correct
+bundle exec rubocop --auto-gen-config
