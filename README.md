@@ -30,9 +30,7 @@ Add this line to your Capfile:
 require 'capistrano/hook'
 ```
 
-### Webhook
-
-Webhook will not be run with no settings. You can setting the variables shown below.
+Notification will not be run with no settings. You can setting the variables shown below.
 
 ```ruby
 set :webhook_url, 'https://yulii.github.io/services'
@@ -43,7 +41,9 @@ set :webhook_reverting_payload,  { text: 'Reverting...' }
 set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 ```
 
-### Testing
+See [capistrano-hook/config](https://github.com/yulii/capistrano-hook/tree/master/config)
+
+## Testing
 
 Test your setup by running:
 
@@ -67,30 +67,32 @@ $ cap production webhook:post:reverting
 $ cap production webhook:post:rollbacked
 ```
 
-### Slack
+## Example
 
-Send notifications to Slack via incoming webhooks.
+### Slack incoming webhook
+
+Send notifications to Slack via incoming webhook.
+
+[Slack API - Incoming Webhooks](https://api.slack.com/incoming-webhooks)
 
 ```ruby
-set :webhook_url, 'https://yulii.github.io/services'
+set :webhook_url, '#{YOUR WEBHOOK URL}'
 set :webhook_starting_payload, {
   username:   'Capistrano',
-  icon_emoji: ':monkey_face:',
+  icon_emoji: ':rocket:',
   text:       'Now, deploying...'
 }
 set :webhook_finished_payload, {
   username:   'Capistrano',
-  icon_emoji: ':monkey_face:',
+  icon_emoji: ':rocket:',
   text:       'Deployment has been completed!'
 }
 set :webhook_failed_payload, {
   username:   'Capistrano',
-  icon_emoji: ':monkey_face:',
+  icon_emoji: ':rotating_light:',
   text:       'Oops! something went wrong.'
 }
 ```
-
-[Slack API - Incoming Webhooks](https://api.slack.com/incoming-webhooks)
 
 ## Development
 
