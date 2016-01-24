@@ -67,6 +67,8 @@ $ cap production webhook:post:reverting
 $ cap production webhook:post:rollbacked
 ```
 
+If you want to see all capistrano hook commands, please run `cap -T`. :)
+
 ## Example
 
 ### Slack incoming webhook
