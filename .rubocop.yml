@@ -4,6 +4,6 @@ Metrics/LineLength:
 Style/Documentation:
   Enabled: false
 
-SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: false
 

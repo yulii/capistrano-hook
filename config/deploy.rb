@@ -16,7 +16,7 @@ set :keep_releases, 5
 MOCK_URL = {
   '200' => 'http://www.mocky.io/v2/55d33a90ec91e92b0e5e8e18',
   '406' => 'http://www.mocky.io/v2/55d6557a54774eed102a494c'
-}
+}.freeze
 
 namespace :deploy do
   after :restart, :clear_cache do
