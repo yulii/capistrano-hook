@@ -83,7 +83,7 @@ module Capistrano
 
       def assert_silent_with_blank_url(task)
         set :webhook_url, nil
-        assert_equal(fetch(:webhook_nil), nil)
+        assert_nil fetch(:webhook_nil)
         capture_io do
           Rake::Task["webhook:post:#{task}"].execute
         end
