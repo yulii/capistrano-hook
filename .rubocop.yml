@@ -1,3 +1,6 @@
+Metrics/BlockLength:
+  Max: 76
+
 Metrics/LineLength:
   Max: 104
 
