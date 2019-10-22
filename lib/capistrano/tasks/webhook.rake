@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #  Capistrano hook will not be run with no settings.
 #
 #  You can setting the variables shown below.
@@ -12,6 +14,7 @@
 namespace :webhook do
   def webhook(url, payload)
     return if url.nil? || payload.nil? || payload.empty?
+
     info "POST #{url} payload='#{payload}'"
     result = Capistrano::Hook::Web.client(url).post(payload)
     message = "HTTP #{result.code} #{result.message} body='#{result.body}'; "
@@ -35,6 +38,7 @@ namespace :webhook do
         padding = keys.max_by(&:length).length
         keys.each do |key|
           next if fetch(key).nil? || fetch(key).empty?
+
           puts ":#{key.to_s.ljust(padding)} => #{fetch(key)}"
         end
       end
