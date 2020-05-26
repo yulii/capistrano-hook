@@ -36,6 +36,13 @@ module Capistrano
         assert_equal(client.request.content_type, 'application/x-www-form-urlencoded')
       end
 
+      def test_nil_headers
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook', nil)
+        client.post(params)
+
+        assert_equal(client.request.content_type, 'application/json')
+      end
+
       private
 
       def setup
