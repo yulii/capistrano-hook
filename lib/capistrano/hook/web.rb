@@ -5,16 +5,14 @@ require 'net/http'
 module Capistrano
   module Hook
     class Web
-      attr_reader :uri, :http, :request
+      attr_reader :uri, :http, :request, :headers
       private_class_method :new
 
-      def initialize(url, headers = {})
+      def initialize(url, headers)
         @uri     = URI.parse(url).freeze
-        @http    = Net::HTTP.new(uri.host, uri.port)
-        @request = Net::HTTP::Post.new(path)
-
-        http.use_ssl = uri.is_a?(URI::HTTPS)
-        request.initialize_http_header(default_headers.merge(headers))
+        @headers = headers
+        initialize_http
+        initialize_request
       end
 
       def post(params)
@@ -24,8 +22,8 @@ module Capistrano
         end
       end
 
-      def self.client(url)
-        new(url)
+      def self.client(url, headers = {})
+        new(url, headers)
       end
 
       private
@@ -39,6 +37,16 @@ module Capistrano
 
       def default_headers
         { 'Content-Type' => 'application/json' }
+      end
+
+      def initialize_http
+        @http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = uri.is_a?(URI::HTTPS)
+      end
+
+      def initialize_request
+        @request = Net::HTTP::Post.new(path)
+        request.initialize_http_header(default_headers.merge(headers))
       end
     end
   end
