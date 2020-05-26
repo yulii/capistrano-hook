@@ -13,14 +13,6 @@ module Capistrano
         assert_equal(client.http.use_ssl?, false)
       end
 
-      def test_post_request_with_http
-        client = Capistrano::Hook::Web.client('http://stub.capistrano.hook')
-        client.post(params)
-
-        assert_equal(client.request.content_type, 'application/json')
-        assert_equal(client.request.body, params.to_json)
-      end
-
       def test_self_client_with_https
         client = Capistrano::Hook::Web.client('https://stub.capistrano.hook')
 
@@ -29,12 +21,19 @@ module Capistrano
         assert_equal(client.http.use_ssl?, true)
       end
 
-      def test_post_request_with_https
+      def test_post_request
         client = Capistrano::Hook::Web.client('https://stub.capistrano.hook')
         client.post(params)
 
         assert_equal(client.request.content_type, 'application/json')
         assert_equal(client.request.body, params.to_json)
+      end
+
+      def test_specify_content_type
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook', 'Content-Type' => 'application/x-www-form-urlencoded')
+        client.post(params)
+
+        assert_equal(client.request.content_type, 'application/x-www-form-urlencoded')
       end
 
       private

@@ -12,11 +12,11 @@
 #    set :webhook_rollbacked_payload, { text: 'Rollback has been completed!' }
 
 namespace :webhook do
-  def webhook(url, payload)
+  def webhook(url, payload, headers = {})
     return if url.nil? || payload.nil? || payload.empty?
 
     info "POST #{url} payload='#{payload}'"
-    result = Capistrano::Hook::Web.client(url).post(payload)
+    result = Capistrano::Hook::Web.client(url, headers).post(payload)
     message = "HTTP #{result.code} #{result.message} body='#{result.body}'; "
     if result.is_a?(Net::HTTPSuccess)
       info message
@@ -30,6 +30,7 @@ namespace :webhook do
     task :list do
       run_locally do
         keys = %i[webhook_url
+                  webhook_http_headers
                   webhook_starting_payload
                   webhook_finished_payload
                   webhook_failed_payload
@@ -51,7 +52,8 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_starting_payload)
-        webhook(url, payload)
+        headers = fetch(:webhook_http_headers)
+        webhook(url, payload, headers)
       end
     end
 
@@ -60,7 +62,8 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_finished_payload)
-        webhook(url, payload)
+        headers = fetch(:webhook_http_headers)
+        webhook(url, payload, headers)
       end
     end
 
@@ -69,7 +72,8 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_failed_payload)
-        webhook(url, payload)
+        headers = fetch(:webhook_http_headers)
+        webhook(url, payload, headers)
       end
     end
 
@@ -78,7 +82,8 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_reverting_payload)
-        webhook(url, payload)
+        headers = fetch(:webhook_http_headers)
+        webhook(url, payload, headers)
       end
     end
 
@@ -87,7 +92,8 @@ namespace :webhook do
       run_locally do
         url     = fetch(:webhook_url)
         payload = fetch(:webhook_rollbacked_payload)
-        webhook(url, payload)
+        headers = fetch(:webhook_http_headers)
+        webhook(url, payload, headers)
       end
     end
 
