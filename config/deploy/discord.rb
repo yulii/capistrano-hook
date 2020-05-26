@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
@@ -22,26 +23,13 @@
 
 # Configuration
 # =============
-# You can set any configuration variable like in config/deploy.rb
-# These variables are then only loaded and set in this stage.
-# For available Capistrano configuration variables see the documentation page.
-# http://capistranorb.com/documentation/getting-started/configuration/
-# Feel free to add new variables to customise your setup.
+set :webhook_url, ENV.fetch('WEBHOOK_URL') { MOCK_URL[(ENV['STATUS_CODE'] || '200')] }
+set :webhook_starting_payload,   content: '[production] Now, deploying...'
+set :webhook_finished_payload,   content: '[production] Deployment has been completed!'
+set :webhook_failed_payload,     content: '[production] Oops! something went wrong.'
+set :webhook_reverting_payload,  content: '[production] Reverting...'
+set :webhook_rollbacked_payload, content: '[production] Rollback has been completed!'
 
-# Custom SSH Options
-# ==================
-# You may pass any option but keep in mind that net/ssh understands a
-# limited set of options, consult the Net::SSH documentation.
-# http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start
-#
-# Global options
-# --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
-#
 # The server-based syntax can be used to override options:
 # ------------------------------------
 # server 'example.com',
