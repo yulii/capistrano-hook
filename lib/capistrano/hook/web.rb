@@ -23,7 +23,7 @@ module Capistrano
       end
 
       def self.client(url, headers = {})
-        new(url, headers)
+        new(url, headers.is_a?(Hash) ? headers : {})
       end
 
       private
