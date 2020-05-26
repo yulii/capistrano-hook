@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 # config valid only for current version of Capistrano
-lock '3.4.0'
+# lock '3.4.0'
 
 set :application, 'capistrano-hook'
 set :repo_url, 'git@github.com:yulii/capistrano-hook.git'
 set :branch, :master
 
 set :deploy_to, '/tmp'
-set :scm, :git
 set :format, :pretty
 set :log_level, :debug
 
