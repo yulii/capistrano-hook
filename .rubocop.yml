@@ -7,6 +7,5 @@ Metrics/LineLength:
 Style/Documentation:
   Enabled: false
 
-Style/SpaceBeforeFirstArg:
+Layout/SpaceBeforeFirstArg:
   Enabled: false
-
