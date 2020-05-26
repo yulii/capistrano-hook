@@ -2,6 +2,10 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+VERSION=$(ruby -e "require './lib/capistrano/hook/version'; print Capistrano::Hook::VERSION")
+
 bundle install
+bundle exec rake build
+gem install pkg/capistrano-hook-${VERSION}.gem
 
 # Do any other automated setup that you need to do here
