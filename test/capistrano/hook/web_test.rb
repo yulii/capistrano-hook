@@ -15,10 +15,10 @@ module Capistrano
 
       def test_post_request_with_http
         client = Capistrano::Hook::Web.client('http://stub.capistrano.hook')
-        client.post(payload: { text: 'Capistrano Hook Test!' })
+        client.post(params)
 
         assert_equal(client.request.content_type, 'application/json')
-        assert_equal(client.request.body, 'payload=%7B%3Atext%3D%3E%22Capistrano+Hook+Test%21%22%7D')
+        assert_equal(client.request.body, params.to_json)
       end
 
       def test_self_client_with_https
@@ -31,10 +31,10 @@ module Capistrano
 
       def test_post_request_with_https
         client = Capistrano::Hook::Web.client('https://stub.capistrano.hook')
-        client.post(payload: { text: 'Capistrano Hook Test!' })
+        client.post(params)
 
         assert_equal(client.request.content_type, 'application/json')
-        assert_equal(client.request.body, 'payload=%7B%3Atext%3D%3E%22Capistrano+Hook+Test%21%22%7D')
+        assert_equal(client.request.body, params.to_json)
       end
 
       private
@@ -42,6 +42,10 @@ module Capistrano
       def setup
         stub_request(:any, 'http://stub.capistrano.hook')
         stub_request(:any, 'https://stub.capistrano.hook')
+      end
+
+      def params
+        { text: 'Capistrano Hook Test!' }
       end
     end
   end
