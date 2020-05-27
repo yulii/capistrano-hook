@@ -23,7 +23,7 @@
 
 # Configuration
 # =============
-set :webhook_url, MOCK_URL[(ENV['STATUS_CODE'] || '200')]
+set :webhook_url, ENV.fetch('WEBHOOK_URL') { MOCK_URL[(ENV['STATUS_CODE'] || '200')] }
 set :webhook_starting_payload,   text: '[production] Now, deploying...'
 set :webhook_finished_payload,   text: '[production] Deployment has been completed!'
 set :webhook_failed_payload,     text: '[production] Oops! something went wrong.'

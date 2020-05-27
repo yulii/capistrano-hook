@@ -5,39 +5,53 @@ require 'test_helper'
 module Capistrano
   module Hook
     class WebTest < Minitest::Test
-      def test_private_methods_definition
-        methods = Capistrano::Hook::Web.private_methods
-
-        assert_includes(methods, :new)
-      end
-
-      def test_protected_methods_definition
-        methods = Capistrano::Hook::Web.allocate.protected_methods
-
-        assert_includes(methods, :http)
-        assert_includes(methods, :uri)
-      end
-
       def test_self_client_with_http
-        client = Capistrano::Hook::Web.client('http://yulii.github.io')
-        uri    = client.instance_variable_get(:@uri)
-        http   = client.instance_variable_get(:@http)
+        client = Capistrano::Hook::Web.client('http://stub.capistrano.hook')
 
-        assert_equal(uri.frozen?,   true)
-        assert_equal(http.address,  'yulii.github.io')
-        assert_equal(http.port,     80)
-        assert_equal(http.use_ssl?, false)
+        assert_equal(client.http.address, 'stub.capistrano.hook')
+        assert_equal(client.http.port, 80)
+        assert_equal(client.http.use_ssl?, false)
       end
 
       def test_self_client_with_https
-        client = Capistrano::Hook::Web.client('https://yulii.github.io')
-        uri    = client.instance_variable_get(:@uri)
-        http   = client.instance_variable_get(:@http)
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook')
 
-        assert_equal(uri.frozen?,   true)
-        assert_equal(http.address,  'yulii.github.io')
-        assert_equal(http.port,     443)
-        assert_equal(http.use_ssl?, true)
+        assert_equal(client.http.address, 'stub.capistrano.hook')
+        assert_equal(client.http.port, 443)
+        assert_equal(client.http.use_ssl?, true)
+      end
+
+      def test_post_request
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook')
+        client.post(params)
+
+        assert_equal(client.request.content_type, 'application/json')
+        assert_equal(client.request.body, params.to_json)
+      end
+
+      def test_specify_content_type
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook', 'Content-Type' => 'application/x-www-form-urlencoded')
+        client.post(params)
+
+        assert_equal(client.request.content_type, 'application/x-www-form-urlencoded')
+      end
+
+      def test_nil_headers
+        client = Capistrano::Hook::Web.client('https://stub.capistrano.hook', nil)
+        client.post(params)
+
+        assert_equal(client.request.content_type, 'application/json')
+      end
+
+      private
+
+      def setup
+        stub_request(:any, 'http://stub.capistrano.hook')
+        stub_request(:any, 'https://stub.capistrano.hook')
+      end
+
+      def params
+        { text: 'Capistrano Hook Test!' }
       end
     end
   end
